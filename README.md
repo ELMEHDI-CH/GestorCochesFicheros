@@ -114,13 +114,17 @@ Para interactuar con la aplicación de forma adecuada, siga los flujos operacion
 ### Paso 1: Menú Principal y Control de Excepciones (Carga Inicial)
 Al arrancar la aplicación, el sistema despliega el menú interactivo con las opciones de gestión del inventario. El software cuenta con un control robusto de errores mediante bloques `try-catch`. Si el usuario intenta realizar acciones operativas antes de que el archivo `coches.csv` se encuentre situado en la raíz del proyecto, el sistema captura de forma segura la excepción `FileNotFoundException`. De este modo, en lugar de colapsar la aplicación, el programa informa de manera controlada que existen `0 coches cargados`, manteniendo la ejecución activa y estable.
 
-![Menú de la Aplicación y Control de Errores](img/importardatos.png)
+![Menú de la Aplicación y Control de Errores](importardatos.png)
 
 ### Paso 2: Lectura Analítica y Procesamiento de Ficheros
 Una vez que el archivo de datos estructurado se encuentra en el directorio correcto y el usuario ejecuta la acción del menú, la clase `Importadorficheros` procesa las líneas mediante `BufferedReader`. El sistema interactúa de forma modular con la clase `CalculadorPrecio` para aplicar dinámicamente los porcentajes de impuestos (21% o 10% según la antigüedad del vehículo en base al año actual 2026) y los descuentos correspondientes antes de instanciar los objetos en memoria.
 
-![Procesamiento de Archivos en Consola](img/listar_coches.png)
+![Procesamiento de Archivos en Consola](listar_coches.png)
 
+### Paso 3: Persistencia Segura en Almacenamiento Secundario (Guardado Binario)
+Para evitar la pérdida de la información procesada tras cerrar la consola, el usuario puede ejecutar la opción de guardado. El programa invoca a la clase `GestorArchivoBinario` la cual, mediante flujos de datos (`FileOutputStream` y `DataOutputStream`), escribe de forma secuencial y ordenada los atributos nativos de los vehículos (marca, modelo, año, kilómetros, precio base, descuento, color, combustible, transmisión, estado y precio final). El sistema genera un archivo binario local optimizado, garantizando la persistencia permanente de los datos de la flota.
+
+![Guardado de Datos en Archivo Binario](guardar_coches.png)
 ### Paso 3: Persistencia Segura en Almacenamiento Secundario (Guardado Binario)
 Para evitar la pérdida de la información procesada tras cerrar la consola, el usuario puede ejecutar la opción de guardado. El programa invoca a la clase `GestorArchivoBinario` la cual, mediante flujos de datos (`FileOutputStream` y `DataOutputStream`), escribe de forma secuencial y ordenada los atributos nativos de los vehículos (marca, modelo, año, kilómetros, precio base, descuento, color, combustible, transmisión, estado y precio final). El sistema genera un archivo binario local optimizado, garantizando la persistencia permanente de los datos de la flota.
 
