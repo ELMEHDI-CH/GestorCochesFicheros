@@ -112,19 +112,21 @@ El siguiente esquema ilustra cómo los datos fluyen a través de las diferentes 
 Para interactuar con la aplicación de forma adecuada, siga los flujos operacionales del sistema descritos a continuación.
 
 *(Aviso: Asegúrese de realizar las capturas de pantalla de la consola de comandos de su propio entorno de desarrollo e introducirlas dentro de la carpeta `/img` del repositorio respetando los nombres indicados en las etiquetas Markdown).*
+### Paso 1: Configuración, Menú Principal y Control de Excepciones
+Al iniciar la aplicación, se despliega en la consola el menú interactivo con las 4 opciones de gestión disponibles para el usuario. El sistema incorpora un sistema robusto de control de errores mediante bloques `try-catch`. Si el usuario selecciona opciones operativas (como listar o guardar) antes de realizar una importación correcta, o bien si el archivo `coches.csv` no se encuentra exactamente en la raíz del proyecto, el programa captura la excepción `FileNotFoundException`. De este modo, en lugar de colapsar la aplicación, se notifica de forma segura que existen `0 coches cargados`, manteniendo el sistema estable.
 
-### Paso 1: Configuración de Entorno y Carga de Archivos Planos
+![Menú de la Aplicación y Control de Errores](img/menu.png)
+
+
+### Paso 2: Configuración de Entorno y Carga de Archivos Planos
 Antes de lanzar la aplicación, asegúrese de que el archivo estructurado `coches.csv` se encuentra ubicado en el directorio raíz del proyecto. Ejecute la aplicación desde su IDE. Al iniciar, seleccione la opción del menú destinada a la carga inicial de datos. El sistema leerá el archivo de texto y mostrará un mensaje confirmando el número de registros importados con éxito.
-![Carga Inicial CSV](img/carga_csv.png)
+![Carga Inicial CSV](img/importardatos.png)
 
-### Paso 2: Consulta del Inventario en Memoria
+### Paso 3: Consulta del Inventario en Memoria
 Seleccione la opción correspondiente para listar los vehículos del sistema. La consola imprimirá una tabla o un listado detallado formateado mediante el método `toString()`, reflejando la información mapeada directamente desde el archivo de origen hacia los objetos internos.
-![Listado del Inventario](img/listado_coches.png)
+![Listado del Inventario](img/listar_coches.png)
 
-### Paso 3: Salvado del Estado del Sistema (Exportación Binaria)
-Tras consultar o realizar cualquier modificación en el inventario, es imprescindible guardar los cambios para evitar la pérdida de información. Seleccione la opción de guardado binario en el menú principal. La aplicación serializará la colección de objetos completa y generará un archivo cifrado/binario en el almacenamiento secundario del equipo.
-![Guardado en Archivo Binario](img/guardar_binario.png)
+### Paso 4: Salvado del Estado del Sistema y Exportación Binaria
+Tras consultar o realizar cualquier modificación en el inventario, el usuario puede seleccionar la opción en el menú principal para guardar de forma segura los datos procesados. El sistema interactúa con la clase `GestorArchivoBinario` y, mediante flujos dinámicos de datos (`DataOutputStream`), escribe los atributos campo por campo para generar un archivo binario local en el almacenamiento secundario. Esto garantiza que la información quede almacenada de forma persistente y eficiente.
 
-### Paso 4: Carga y Reconstrucción Automatizada desde Binario
-Si cierra por completo la aplicación y vuelve a ejecutarla en el futuro, no necesitará repetir el Paso 1 de importación desde el CSV. Seleccione la opción de recuperar datos binarios del menú. El sistema invocará al deserializador para cargar el estado anterior de forma instantánea, manteniendo los registros exactamente igual que en la última sesión de trabajo.
-![Carga desde Archivo Binario](img/cargar_binario.png)
+![Guardado de Datos en Archivo Binario](img/guardar_coches.png)
